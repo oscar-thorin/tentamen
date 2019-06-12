@@ -1,4 +1,4 @@
-# HomneNet
+# HomeNet
 
 Homenet is the new site for selling your house, condo or other properties:
 This API has been blatlantly stolen from our biggest competitor hemnet.
