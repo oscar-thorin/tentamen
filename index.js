@@ -1,9 +1,12 @@
 const express = require("express");
+const cors = require("cors")
+const swaggerUi = require('swagger-ui-express');
 
 const routes = require("./routes")
 const db = require("./models")
 
 const app = express();
+app.use(cors());
 
 // environment variable PORT or 3000 if unset
 const port = process.env.PORT || 3000;
@@ -25,7 +28,21 @@ app.use((req, res, next) => {
   next()
 })
 
+var options = {
+  explorer: true,
+  editor: true,
+  swaggerOptions: {
+    urls: [
+      {
+        url: '/swagger.yaml',
+        name: 'Spec1'
+      }
+    ]
+  }
+}
+
 app.use('/', express.static(__dirname + '/swagger'));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(null, options));
 app.use('/', routes)
 
 
