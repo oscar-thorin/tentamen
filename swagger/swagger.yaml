@@ -1,27 +1,27 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: HomeNet
+  title: BookLibrary
   description: |
-    listings of properties for sale
+    books available for loan
   license:
     name: MIT
 servers:
 - url: http://localhost:3000
 paths:
-  /listings:
+  /books:
     get:
-      summary: Lists all listings
-      operationId: listListings
+      summary: Lists all books
+      operationId: listBooks
       tags:
-      - listings
+      - books
       responses:
         '200':
-          description: Array of listings
+          description: Array of books
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/ResponseListings"
+                $ref: "#/components/schemas/ResponseBooks"
         default:
           description: unexpected error
           content:
@@ -30,13 +30,13 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
-    Listing:
+    Book: # A single book
       type: object
       properties:
-# Add properties for your listings here   
-    ResponseListing:
+# Add properties for your books here   
+    ResponseBook: #Single book response including _id and __v
       allOf:
-      - $ref: "#/components/schemas/Listing"
+      - $ref: "#/components/schemas/Book"
       - properties:
           __v:
             type: integer
@@ -44,10 +44,10 @@ components:
           _id:
             type: string
             format: uuid
-    ResponseListings:
+    ResponseBooks: #list of books
       type: array
       items:
-        $ref: "#/components/schemas/ResponseListing"
+        $ref: "#/components/schemas/ResponseBook"
     Error:
       required:
         - error

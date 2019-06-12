@@ -1,21 +1,32 @@
-# HomeNet
+# Bargain Books
 
-Homenet is the new site for selling your house, condo or other properties:
-This API has been blatlantly stolen from our biggest competitor hemnet.
+We're going to revolutionize the books market by providing a site for selling books between individuals
 
-Each listing should contain the following information: coordinate with latitude and longitude, street name and number, location name (such as municipality (kommun) or city district (stadsdel)), type summary (as in condo (bostadsrätt) or villa), price, monthly fee and wether bidding is active or not.
+```json
+{
+    "ISBN": "978-0-321-87758-1",
+    "Title": "Essential C#5.0",
+    "Author": "Mark Michaelis",
+    "Price": 59.99,
+    "SellerEmail": "someone@someplace.com",
+    "Used": true,
+    "Location": {
+        "City": "Redmond",
+        "Street": "156TH AVE NE"
+    }
+}
+```
 
-We need to be able to provide a nice list of all properties, as well as showing, creating, updating and deleting individual listings.
+We need to be able to provide a nice list of all the books for sale, as well as showing, creating, updating and deleting individual books. Status codes returned by the API should reflect whether something was created, changed, or if the request had no effect.
 
-Our customers know what they want, so being able to list all listings on matching location names, type summary, or say a max price. (Just one is enough, you don't need to support multiple parameters at once in this early version)
+Our customers know what they want, so being able to filter books on Title or Author is important, one is enough.
+Basic data type validation should be performed for basic data types such as String, Number and Boolean.
 
-The API should provide valid json data, and the naming is up to you as long as the aforementioned information is provided. Basic data type validation should be performed for String, Number and possibly Boolean (true/false) values.
-
-Your mission, should you choose to accept it, is to implement this API and prove that it works, either by providing tests or a swagger file for manual testing (not both).
+Your mission, should you choose to accept it, is to implement this API and prove that it works, either by providing tests or a swagger file for manual testing. All methods and paths should be tested by unit tests or documented in swagger, but not neccessarily both.
 
 ## Instructions
 
-Fork this repo (top right corner icon on github) to create a copy of this repo to your own gitub account, clone your repo, do your implementation and push to your github, and send me a link on slack to your repo on github or create a pull request when you're done.
+Fork this repo (top right corner icon on github) to create a copy of this repo to your own gitub account, clone your repo, do your implementation and push to your github, and create a pull request when done.
 
 ## Running
 
@@ -40,4 +51,9 @@ npm run test
 
 ## swagger
 
-If provided, update the `swagger/swagger.yaml` file containing an openapi 3.0 or swagger 2.0 specification of the API.
+Swagger UI availble at `localhost:3000/swagger`
+Specification served at UI availble at `localhost:3000/swagger.yaml`
+
+Update the `swagger/swagger.yaml` file containing an openapi 3.0 or swagger 2.0 specification of the API.
+
+NOTE: The online swagger editor `http://editor.swagger.io/` can occasionally report errors for a correct yaml file. If you get an error that doesn't make sense, just reload the editor page.

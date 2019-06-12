@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const listing = require('./listing.js')
+const book = require('./book.js')
 
-router.get("/listings", listing.get)
+router.get("/books", book.get)
 
 module.exports = router

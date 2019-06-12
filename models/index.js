@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const Listing = require('./listing.js')
+const Book = require('./book.js')
 
-const uri = process.env.DATABASE_URL || "mongodb://localhost:27017/homenet"
+const uri = process.env.DATABASE_URL || "mongodb://localhost:27017/books"
 
 const connectDb = () => {
   return mongoose.connect(uri, { useNewUrlParser: true });
@@ -10,6 +10,6 @@ const connectDb = () => {
 module.exports = {
   connectDb,
   models: {
-    Listing
+    Book
   }
 } 

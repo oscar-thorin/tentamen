@@ -1,6 +1,6 @@
 get = (req, res, next) => {
-  req.models.Listing.find().then((listings) => {
-      return res.send(listings);
+  req.models.Book.find().then((books) => {
+      return res.send(books);
     }).catch((error) => next(error))
 }
 

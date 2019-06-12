@@ -2,6 +2,7 @@
 const sinon = require('sinon');
 
 const mongoose = require('mongoose')
+mongoose.set('debug', true)
 require('sinon-mongoose')
 
 // initialize the app and models
@@ -13,35 +14,36 @@ const agent = require('supertest').agent(app);
 const expect = require('chai').expect;
 
 // get the model
-const Listing = mongoose.model('Listing')
+const Book = mongoose.model('Book')
 
-var Mock = sinon.mock(Listing)
+var mock = sinon.mock(Book)
 
 beforeEach(() => {
-	Mock.restore(); // Unwraps the spy
+	mock.restore(); // Unwraps the spy
+	mock = sinon.mock(Book)
 });
 
 afterEach( () => {
-	Mock.verify();
+	mock.verify();
 });
 
 	const expected = {
 		//...
 	}
 
-describe('users.get', ()  => {
+describe('books.get', ()  => {
 
-	it('Should return an array of all listings', (done) => {
+	it('Should return an array of all books', (done) => {
 
 		// Given (preconditions)
-		Mock
+		mock
 		.expects('find')
 		.chain('exec')
 		.resolves([expected]);
 
 		// When (someting happens)
 		agent
-		.get('/listings')
+		.get('/books')
 		.end((err,res) => {
 		// Then (something should happen)
 			expect(res.status).to.equal(200);

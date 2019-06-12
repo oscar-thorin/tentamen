@@ -28,6 +28,7 @@ app.use((req, res, next) => {
   next()
 })
 
+// show swagger ui on /swagger and spec on /swagger.yaml
 var options = {
   explorer: true,
   editor: true,
@@ -43,8 +44,8 @@ var options = {
 
 app.use('/', express.static(__dirname + '/swagger'));
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(null, options));
-app.use('/', routes)
 
+app.use('/', routes)
 
 // Start up the database, then the server and begin listen to requests
 if(process.env.NODE_ENV != "test") {
