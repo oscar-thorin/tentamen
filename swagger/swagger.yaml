@@ -56,7 +56,7 @@ components:
           type: object
           properties:
             expose:
-              type: bool
+              type: boolean
             statusCode:
               type: integer
               format: uint32
