@@ -7,21 +7,47 @@ info:
   license:
     name: MIT
 servers:
-- url: http://localhost:3000
+  - url: http://localhost:4000
 paths:
   /books:
     get:
       summary: Lists all books
       operationId: listBooks
       tags:
-      - books
+        - books
       responses:
-        '200':
+        "200":
           description: Array of books
           content:
-            application/json:    
+            application/json:
               schema:
                 $ref: "#/components/schemas/ResponseBooks"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    post:
+      summary: Create a Book
+      operationId: createBook
+      tags:
+        - books
+      requestBody:
+        description: the book to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
+      responses:
+        "201":
+          description: The created book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBook"
         default:
           description: unexpected error
           content:
@@ -33,17 +59,35 @@ components:
     Book: # A single book
       type: object
       properties:
-# Add properties for your books here   
+        book_isbn:
+          type: string
+        book_title:
+          type: string
+        book_author:
+          type: string
+        book_price:
+          type: integer
+        book_selleremail:
+          type: string
+        book_used:
+          type: string
+        book_location:
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+    # Add properties for your books here
     ResponseBook: #Single book response including _id and __v
       allOf:
-      - $ref: "#/components/schemas/Book"
-      - properties:
-          __v:
-            type: integer
-            format: uint32
-          _id:
-            type: string
-            format: uuid
+        - $ref: "#/components/schemas/Book"
+        - properties:
+            __v:
+              type: integer
+              format: uint32
+            _id:
+              type: string
+              format: uuid
     ResponseBooks: #list of books
       type: array
       items:
