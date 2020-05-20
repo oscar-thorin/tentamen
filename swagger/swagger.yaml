@@ -11,7 +11,7 @@ servers:
 paths:
   /books:
     get:
-      summary: Lists all books
+      summary: Lists all Books
       operationId: listBooks
       tags:
         - books
@@ -28,7 +28,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-
+  /books/add:
     post:
       summary: Create a Book
       operationId: createBook
@@ -41,9 +41,136 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Book"
+            example:
+              book_ISBN: 978-0-321-87758-1
+              book_title: Essential C#5.0
+              book_author: Andreas Johansson
+              book_price: 59.99
+              book_sellerEmail: someone@someplace.com
+              book_used: true
+              book_location:
+                city: Redmond
+                street: 156TH AVE NE
       responses:
         "201":
           description: The created book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBook"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /books/{_id}:
+    get:
+      summary: Get a Book by uuid
+      operationId: getBook
+      tags:
+        - books
+      parameters:
+        - name: _id
+          in: path
+          description: book _id
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        "200":
+          description: The found book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBook"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete a Book
+      operationId: deleteBook
+      tags:
+        - books
+      parameters:
+        - name: _id
+          in: path
+          description: book _id
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        "200":
+          description: The deleted book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBook"
+        "204":
+          description: No change (nothing was deleted)
+          default:
+            description: unexpected error
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+  /books/?author={book_author}:
+    get:
+      summary: Get all Book from author
+      operationId: getBookbyAuthor
+      tags:
+        - books
+      parameters:
+        - name: book_author
+          in: path
+          description: book author
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        "200":
+          description: The found books
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBooks"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /books/update/{_id}:
+    post:
+      summary: Update a Book
+      operationId: updateBook
+      tags:
+        - books
+      parameters:
+        - name: _id
+          in: path
+          description: book _id
+          required: true
+          schema:
+            type: string
+            format: string
+      requestBody:
+        description: the book to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
+      responses:
+        "200":
+          description: The updated book
           content:
             application/json:
               schema:

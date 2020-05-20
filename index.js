@@ -70,7 +70,7 @@ bookRoutes.route("/update/:id").post(function (req, res) {
   });
 });
 
-bookRoutes.route("").post(function (req, res) {
+bookRoutes.route("/add").post(function (req, res) {
   let book = new Book(req.body);
   console.log(req.body);
   book
