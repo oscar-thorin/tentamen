@@ -22,9 +22,9 @@ connection.once("open", function () {
 });
 
 bookRoutes.route("/").get(function (req, res) {
-  var author = req.query.author;
-  if (author) {
-    Book.find({ book_author: author }, function (err, book) {
+  var _author = req.query.author;
+  if (_author) {
+    Book.find({ author: _author }, function (err, book) {
       res.json(book);
     });
   } else {
@@ -45,23 +45,23 @@ bookRoutes.route("/:id").get(function (req, res) {
   });
 });
 
-bookRoutes.route("/update/:id").post(function (req, res) {
+bookRoutes.route("/:id").put(function (req, res) {
   Book.findById(req.params.id, function (err, book) {
     if (!book) res.status(404).send("data is not found");
     else {
-      book.book_isbn = req.body.book_isbn;
-      book.book_title = req.body.book_title;
-      book.book_author = req.body.book_author;
-      book.book_price = req.body.book_price;
-      book.book_selleremail = req.body.book_selleremail;
-      book.book_used = req.body.book_used;
-      book.book_location.city = req.body.book_location.city;
-      book.book_location.street = req.body.book_location.street;
+      book.isbn = req.body.isbn;
+      book.title = req.body.title;
+      book.author = req.body.author;
+      book.price = req.body.price;
+      book.selleremail = req.body.selleremail;
+      book.used = req.body.used;
+      book.location.city = req.body.location.city;
+      book.location.street = req.body.location.street;
 
       book
         .save()
         .then((book) => {
-          res.json("Book updated!");
+          res.json(book);
         })
         .catch((err) => {
           res.status(400).send("Update not possible");
@@ -70,7 +70,7 @@ bookRoutes.route("/update/:id").post(function (req, res) {
   });
 });
 
-bookRoutes.route("/add").post(function (req, res) {
+bookRoutes.route("/").post(function (req, res) {
   let book = new Book(req.body);
   console.log(req.body);
   book

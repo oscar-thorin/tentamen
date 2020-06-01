@@ -2,25 +2,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Book = new Schema({
-  book_ISBN: {
+  ISBN: {
     type: String,
   },
-  book_title: {
+  title: {
     type: String,
   },
-  book_author: {
+  author: {
     type: String,
   },
-  book_price: {
+  price: {
     type: Number,
   },
-  book_selleremail: {
+  selleremail: {
     type: String,
   },
-  book_used: {
+  used: {
     type: Boolean,
   },
-  book_location: {
+  location: {
     city: {
       type: String,
     },

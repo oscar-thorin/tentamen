@@ -28,7 +28,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /books/add:
+  /books/:
     post:
       summary: Create a Book
       operationId: createBook
@@ -42,13 +42,13 @@ paths:
             schema:
               $ref: "#/components/schemas/Book"
             example:
-              book_ISBN: 978-0-321-87758-1
-              book_title: Essential C#5.0
-              book_author: Andreas Johansson
-              book_price: 59.99
-              book_sellerEmail: someone@someplace.com
-              book_used: true
-              book_location:
+              ISBN: 978-0-321-87758-1
+              title: Essential C#5.0
+              author: Andreas Johansson
+              price: 59.99
+              sellerEmail: someone@someplace.com
+              used: true
+              location:
                 city: Redmond
                 street: 156TH AVE NE
       responses:
@@ -119,14 +119,14 @@ paths:
               application/json:
                 schema:
                   $ref: "#/components/schemas/Error"
-  /books/?author={book_author}:
+  /books/?author={author}:
     get:
       summary: Get all Book from author
       operationId: getBookbyAuthor
       tags:
         - books
       parameters:
-        - name: book_author
+        - name: author
           in: path
           description: book author
           required: true
@@ -147,8 +147,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /books/update/{_id}:
-    post:
+  /books/{_id}:
+    put:
       summary: Update a Book
       operationId: updateBook
       tags:
@@ -169,7 +169,7 @@ paths:
             schema:
               $ref: "#/components/schemas/Book"
       responses:
-        "200":
+        "201":
           description: The updated book
           content:
             application/json:
@@ -186,19 +186,19 @@ components:
     Book: # A single book
       type: object
       properties:
-        book_isbn:
+        isbn:
           type: string
-        book_title:
+        title:
           type: string
-        book_author:
+        author:
           type: string
-        book_price:
+        price:
           type: integer
-        book_selleremail:
+        selleremail:
           type: string
-        book_used:
+        used:
           type: string
-        book_location:
+        location:
           properties:
             city:
               type: string
